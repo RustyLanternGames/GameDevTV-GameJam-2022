@@ -13,10 +13,16 @@ public class Door : MonoBehaviour
     [SerializeField] GameObject doorOpenPrompt;
     GameObject thisDoorPrompt;
 
+    [SerializeField] DoorDestinationSO doorDestinationSO;
+
+    int doorDestinationIndex;
+
     // Start is called before the first frame update
     void Start()
     {
         doorPromptPosition = transform.position + doorPromptOffset;
+
+        doorDestinationIndex = doorDestinationSO.getNextSceneIndex();
     }
 
     // Update is called once per frame
@@ -47,6 +53,11 @@ public class Door : MonoBehaviour
     void DisplayDoorOpenPrompt()
     {
         thisDoorPrompt = Instantiate(doorOpenPrompt, doorPromptPosition, Quaternion.identity);
-    }   
+    }
+
+    public int GetDoorDestinationIndex()
+    {
+        return doorDestinationIndex;
+    }
 
 }

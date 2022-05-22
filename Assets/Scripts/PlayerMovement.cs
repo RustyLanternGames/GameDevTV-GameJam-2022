@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     bool isJumping = false;
     bool isInteracting = false;
     bool isAtDoor = false;
+
+    Door door;
 
     void Start()
     {
@@ -67,26 +70,43 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumping = false;
             playerAnimator.SetBool("isJumping", isJumping);
-        }
+        }        
+    }
 
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
         if(other.gameObject.tag == "Door")
         {
             isAtDoor = true;
-            EnterBuilding();
+            door = other.GetComponent<Door>();
         }
     }
+
+    private void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.gameObject.tag == "Door")
+        {
+            isAtDoor = false;
+            door = null;
+        }
+    }
+
 
     void OnInteract(InputValue value)
     {
         if(value.isPressed)
         {
-            Debug.Log("Enter");
+            if(isAtDoor)
+            {
+                int nextScene = door.GetDoorDestinationIndex();
+                EnterBuilding(nextScene);
+            }
         }
-
     }
     
-    void EnterBuilding()
+    void EnterBuilding(int nextScene)
     {
-
+        Debug.Log("Things will happen");
+        // SceneManager.LoadScene()
     }
 }
