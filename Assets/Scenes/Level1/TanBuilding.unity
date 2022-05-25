@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 95218740}
   m_Layer: 0
   m_Name: Cabinet (2)
-  m_TagString: Untagged
+  m_TagString: Cabinet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,6 +194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3eb1ec2676583944b0b3cb3789f7e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inspectPrompt: {fileID: 5776684665253032723, guid: e26a17b16d6e82042818a8bd3fc591d1, type: 3}
+  hasItem: 0
+  radioItem: {fileID: 0}
 --- !u!1001 &103084900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -862,7 +865,7 @@ GameObject:
   - component: {fileID: 1385093292}
   m_Layer: 0
   m_Name: Cabinet
-  m_TagString: Untagged
+  m_TagString: Cabinet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -920,6 +923,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3eb1ec2676583944b0b3cb3789f7e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inspectPrompt: {fileID: 5776684665253032723, guid: e26a17b16d6e82042818a8bd3fc591d1, type: 3}
+  hasItem: 0
+  radioItem: {fileID: 0}
 --- !u!1 &1468739077
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,7 +1116,7 @@ GameObject:
   - component: {fileID: 1791609107}
   m_Layer: 0
   m_Name: Cabinet (1)
-  m_TagString: Untagged
+  m_TagString: Cabinet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1168,6 +1174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3eb1ec2676583944b0b3cb3789f7e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inspectPrompt: {fileID: 5776684665253032723, guid: e26a17b16d6e82042818a8bd3fc591d1, type: 3}
+  hasItem: 0
+  radioItem: {fileID: 0}
 --- !u!1 &1848781732
 GameObject:
   m_ObjectHideFlags: 0

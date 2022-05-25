@@ -16,8 +16,11 @@ public class PlayerMovement : MonoBehaviour
     bool isRunning = false;
     bool isJumping = false;
     bool isAtDoor = false;
+    bool isAtCabinet;
+
 
     Door door;
+    Cabinet cabinet;
     SpawnPoint spawnPoint;
 
     void Start()
@@ -94,6 +97,11 @@ public class PlayerMovement : MonoBehaviour
             isAtDoor = true;
             door = other.GetComponent<Door>();
         }
+        else if(other.gameObject.tag == "Cabinet")
+        {
+            isAtCabinet = true;
+            cabinet = other.GetComponent<Cabinet>();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) 
@@ -102,6 +110,11 @@ public class PlayerMovement : MonoBehaviour
         {
             isAtDoor = false;
             door = null;
+        }
+        else if(other.gameObject.tag == "Cabinet")
+        {
+            isAtCabinet = false;
+            cabinet = null;
         }
     }
 
@@ -115,6 +128,21 @@ public class PlayerMovement : MonoBehaviour
                 string nextScene = door.GetNextSceneName();
                 EnterBuilding(nextScene);
             }
+            else if(isAtCabinet)
+            {
+                bool hasItem = cabinet.GetHasItem();
+                if(hasItem)
+                {
+                    RadioItem radioItem = cabinet.GetRadioItem();
+                    // show on screen?
+                    Debug.Log("Found Item");
+                }
+                else
+                {
+                    // Dang
+                    Debug.Log("No Item");
+                }
+            }
         }
     }
     
@@ -125,10 +153,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 playerPosition = transform.position;
             gameManager.SetStreetSpawnLocation(playerPosition);
         }
-        // else
-        // {
-        //     gameManager.SetNextSpawnLocation(gameManager.GetStreetSpawnLocation());
-        // }
+
         SceneManager.LoadScene(nextScene);
     }
 }
