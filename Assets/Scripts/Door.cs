@@ -10,19 +10,19 @@ public class Door : MonoBehaviour
     Vector3 doorPromptOffset = new Vector3(0f, 2.5f, 0f);
     Vector3 doorPromptPosition;
 
-    [SerializeField] GameObject doorOpenPrompt;
+    [SerializeField] GameObject doorPrompt;
     GameObject thisDoorPrompt;
 
-    [SerializeField] DoorDestinationSO doorDestinationSO;
+    [SerializeField] string sceneName;
+    [SerializeField] bool isExit = false;
 
-    int doorDestinationIndex;
+    Vector3 buildingSpawnPosition = new Vector3(-15f, -1.5f, 0f);
 
     // Start is called before the first frame update
     void Start()
     {
         doorPromptPosition = transform.position + doorPromptOffset;
 
-        doorDestinationIndex = doorDestinationSO.getNextSceneIndex();
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class Door : MonoBehaviour
      {
         if(other.gameObject.tag == "Player")
         {
-            DisplayDoorOpenPrompt();
+            DisplayDoorPrompt();
         }    
     }
 
@@ -50,14 +50,24 @@ public class Door : MonoBehaviour
         }
     }
 
-    void DisplayDoorOpenPrompt()
+    void DisplayDoorPrompt()
     {
-        thisDoorPrompt = Instantiate(doorOpenPrompt, doorPromptPosition, Quaternion.identity);
+        thisDoorPrompt = Instantiate(doorPrompt, doorPromptPosition, Quaternion.identity);
     }
 
-    public int GetDoorDestinationIndex()
+    public Vector3 GetBuildingSpawnPosition()
     {
-        return doorDestinationIndex;
+        return buildingSpawnPosition;
+    }
+
+    public bool GetIsExit()
+    {
+        return isExit;
+    }
+
+    public string GetNextSceneName()
+    {
+        return sceneName;
     }
 
 }

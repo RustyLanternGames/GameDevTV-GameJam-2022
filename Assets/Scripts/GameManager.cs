@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    Vector2 streetSpawn;
-    Vector2 buildingSpawn;
+    Vector3 streetSpawnLocation = new Vector3(-16f, -3.8f, 0f);
+    Vector3 nextSpawnLocation = new Vector3(-16f, -3.8f, 0f);
 
     void Awake()
     {
@@ -30,5 +30,23 @@ public class GameManager : MonoBehaviour
         
     }
 
-    
+    public void SetStreetSpawnLocation(Vector3 spawnLocation)
+    {
+        streetSpawnLocation = spawnLocation;
+    }
+
+    public Vector3 GetStreetSpawnLocation()
+    {
+        return streetSpawnLocation;
+    }
+
+    public Vector3 GetNextSpawnLocation()
+    {
+        return nextSpawnLocation;
+    }
+
+    public void SetNextSpawnLocation(Vector3 spawnLocation)
+    {
+         nextSpawnLocation = spawnLocation;
+    }
 }

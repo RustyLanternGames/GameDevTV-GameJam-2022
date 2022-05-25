@@ -9,20 +9,34 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D playerRigidBody;
     Animator playerAnimator;
+    GameManager gameManager;
 
     [SerializeField] float playerSpeed = 10f;
     [SerializeField] float jumpSpeed = 15f;
     bool isRunning = false;
     bool isJumping = false;
-    bool isInteracting = false;
     bool isAtDoor = false;
 
     Door door;
+    SpawnPoint spawnPoint;
 
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+        gameManager = FindObjectOfType<GameManager>();
+
+
+        spawnPoint = FindObjectOfType<SpawnPoint>();
+        if(spawnPoint)
+        {
+            transform.position = spawnPoint.transform.position;
+        }
+        else
+        {
+            Vector3 spawnLocation = gameManager.GetStreetSpawnLocation();
+            transform.position = spawnLocation;
+        }
     }
 
     
@@ -98,15 +112,23 @@ public class PlayerMovement : MonoBehaviour
         {
             if(isAtDoor)
             {
-                int nextScene = door.GetDoorDestinationIndex();
+                string nextScene = door.GetNextSceneName();
                 EnterBuilding(nextScene);
             }
         }
     }
     
-    void EnterBuilding(int nextScene)
+    void EnterBuilding(string nextScene)
     {
-        Debug.Log("Things will happen");
-        // SceneManager.LoadScene()
+        if(!door.GetIsExit())
+        {
+            Vector3 playerPosition = transform.position;
+            gameManager.SetStreetSpawnLocation(playerPosition);
+        }
+        // else
+        // {
+        //     gameManager.SetNextSpawnLocation(gameManager.GetStreetSpawnLocation());
+        // }
+        SceneManager.LoadScene(nextScene);
     }
 }
