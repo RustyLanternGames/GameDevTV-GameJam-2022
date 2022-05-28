@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7763581056284432684}
   - component: {fileID: 7763581056284432686}
   - component: {fileID: 7763581056284432687}
+  - component: {fileID: 1687000535}
   m_Layer: 0
   m_Name: Demon
   m_TagString: Enemy
@@ -127,3 +128,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1687000535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7763581056284432691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb26dd145b9710942bf01a6d66565805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  positions:
+  - {fileID: 0}
+  - {fileID: 0}
+  enemyIdleTime: 3
