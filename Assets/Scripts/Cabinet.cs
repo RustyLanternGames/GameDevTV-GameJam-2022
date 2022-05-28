@@ -12,7 +12,7 @@ public class Cabinet : MonoBehaviour
     Vector3 inspectPromptPosition;
 
     [SerializeField] bool hasItem;
-    [SerializeField] RadioItem radioItem;
+    [SerializeField] RadioItemSO radioItemSO;
 
 
     // Start is called before the first frame update
@@ -60,9 +60,9 @@ public class Cabinet : MonoBehaviour
         return hasItem;
     }
 
-    public RadioItem GetRadioItem()
-    {
-        hasItem = false;
-        return radioItem;
-    }
+    // public RadioItem GetRadioItem()
+    // {
+    //     hasItem = false;
+    //     return radioItem;
+    // }
 }

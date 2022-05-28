@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
                 bool hasItem = cabinet.GetHasItem();
                 if(hasItem)
                 {
-                    RadioItem radioItem = cabinet.GetRadioItem();
+                    // RadioItem radioItem = cabinet.GetRadioItem();
                     // show on screen?
                     Debug.Log("Found Item");
                 }
