@@ -7,22 +7,26 @@ using TMPro;
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI dialogueText;
+    [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] GameObject dialogueTextPanel;
     [TextArea(2, 4)]
     [SerializeField] string startingAreaText;
     [SerializeField] float startingDisplayTime;
+    GameManager gameManager;
+    
     Coroutine dialogueCo;
     bool dialogueCoIsRunning = false;
 
     void Start()
     {
         SetUIText(startingAreaText, startingDisplayTime);
+        gameManager = FindObjectOfType<GameManager>();
     }
 
 
     void Update()
     {
-        
+        scoreText.text = gameManager.GetScore().ToString();
     }
 
     public void SetUIText(string newText, float displayTime)

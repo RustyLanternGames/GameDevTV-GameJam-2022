@@ -543,10 +543,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8983313014590090393, guid: 6d07e0e12db99f74ab94a2ff9dfdef58, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d07e0e12db99f74ab94a2ff9dfdef58, type: 3}
 --- !u!114 &516863890 stripped
@@ -565,6 +561,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8983313014590090393, guid: 6d07e0e12db99f74ab94a2ff9dfdef58, type: 3}
   m_PrefabInstance: {fileID: 516863889}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &516863892 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4225593173135021349, guid: 6d07e0e12db99f74ab94a2ff9dfdef58, type: 3}
+  m_PrefabInstance: {fileID: 516863889}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &574607275
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,7 +619,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7779579, y: 1}
+    m_SensorSize: {x: 1.7872341, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -909,7 +916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorPrompt: {fileID: 1495605113609096065, guid: 74293398af70c4445a2081e2ef4cce9a, type: 3}
-  sceneName: Overworld1
+  sceneName: Level1-Overworld
   isExit: 1
 --- !u!1 &1114655544
 GameObject:
@@ -1420,21 +1427,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2059337563113562269, guid: eab51529b31a18649a9fa2e11fe210ab, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 516863892}
+    - target: {fileID: 2059337563113562269, guid: eab51529b31a18649a9fa2e11fe210ab, type: 3}
       propertyPath: dialogueText
       value: 
       objectReference: {fileID: 516863890}
     - target: {fileID: 2059337563113562269, guid: eab51529b31a18649a9fa2e11fe210ab, type: 3}
-      propertyPath: startingAreaText
-      value: I better find that radio...
-      objectReference: {fileID: 0}
-    - target: {fileID: 2059337563113562269, guid: eab51529b31a18649a9fa2e11fe210ab, type: 3}
       propertyPath: dialogueTextPanel
       value: 
       objectReference: {fileID: 516863891}
-    - target: {fileID: 2059337563113562269, guid: eab51529b31a18649a9fa2e11fe210ab, type: 3}
-      propertyPath: startingDisplayTime
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2059337563113562270, guid: eab51529b31a18649a9fa2e11fe210ab, type: 3}
       propertyPath: m_Name
       value: DialogueManager
@@ -1593,13 +1596,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4270630492190795046, guid: fe0fc340dfd68334d804ad43715c6314, type: 3}
-      propertyPath: dialogueText
-      value: 
-      objectReference: {fileID: 516863890}
-    - target: {fileID: 4270630492190795046, guid: fe0fc340dfd68334d804ad43715c6314, type: 3}
-      propertyPath: dialogueTextPanel
-      value: 
-      objectReference: {fileID: 516863891}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe0fc340dfd68334d804ad43715c6314, type: 3}

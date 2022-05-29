@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    int score;
     Vector3 streetSpawnLocation = new Vector3(-16f, -3.8f, 0f);
     Vector3 nextSpawnLocation = new Vector3(-16f, -3.8f, 0f);
 
@@ -28,6 +29,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+    public void AddToScore(int points)
+    {
+        score += points;
     }
 
     public void SetStreetSpawnLocation(Vector3 spawnLocation)

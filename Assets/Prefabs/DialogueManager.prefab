@@ -45,4 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 0}
+  scoreText: {fileID: 0}
   dialogueTextPanel: {fileID: 0}
+  startingAreaText: I better find that radio...
+  startingDisplayTime: 6

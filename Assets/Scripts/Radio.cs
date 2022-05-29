@@ -7,18 +7,21 @@ public class Radio : MonoBehaviour
     bool hasBeenFound = false;
     [SerializeField] GameObject inspectPrompt;
     [SerializeField] string[] radioNeeds;
+    [SerializeField] int pointsPerItem = 10;
     int radioItemsNeededCount;
     int radioItemsFoundCount;
     bool allItemsFound = false;
     GameObject thisInspectPrompt;
     Vector3 inspectPromptOffset = new Vector3(0f, 2.5f, 0f);
     Vector3 inspectPromptPosition;
+    GameManager gameManager;
 
 
     void Start()
     {
         inspectPromptPosition = transform.position + inspectPromptOffset;
         radioItemsNeededCount = radioNeeds.Length;
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -83,6 +86,7 @@ public class Radio : MonoBehaviour
     public void ItemFound()
     {
         radioItemsFoundCount++;
+        gameManager.AddToScore(pointsPerItem);
         if(radioItemsNeededCount == radioItemsFoundCount)
         {
             allItemsFound = true;
