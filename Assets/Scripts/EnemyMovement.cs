@@ -6,7 +6,6 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     [SerializeField] List<Transform> positions;
-    [SerializeField] float enemyIdleTime = 3f;
     int positionIndex = 0;
     Vector3 nextPosition;
     Animator enemyAnimator;

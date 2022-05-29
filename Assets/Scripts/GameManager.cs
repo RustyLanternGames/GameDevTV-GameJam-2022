@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 {
-
     Vector3 streetSpawnLocation = new Vector3(-16f, -3.8f, 0f);
     Vector3 nextSpawnLocation = new Vector3(-16f, -3.8f, 0f);
 
@@ -49,4 +49,6 @@ public class GameManager : MonoBehaviour
     {
          nextSpawnLocation = spawnLocation;
     }
+
+    
 }

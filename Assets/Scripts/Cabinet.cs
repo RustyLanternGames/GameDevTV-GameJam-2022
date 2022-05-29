@@ -60,9 +60,20 @@ public class Cabinet : MonoBehaviour
         return hasItem;
     }
 
-    // public RadioItem GetRadioItem()
-    // {
-    //     hasItem = false;
-    //     return radioItem;
-    // }
+    public string GetRadioItemName()
+    {
+        
+        return radioItemSO.radioItemName;
+    }
+
+    public string GetItemFoundText()
+    {
+        hasItem = false;
+        return radioItemSO.itemFoundText;
+    }
+
+    public string GetItemNotFoundText()
+    {
+        return radioItemSO.itemNotFoundText;
+    }
 }

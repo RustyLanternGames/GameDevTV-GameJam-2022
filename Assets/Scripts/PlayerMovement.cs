@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D playerRigidBody;
     Animator playerAnimator;
     GameManager gameManager;
+    DialogueManager dialogueManager;
 
     [SerializeField] float playerSpeed = 10f;
     [SerializeField] float jumpSpeed = 15f;
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         gameManager = FindObjectOfType<GameManager>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
 
 
         spawnPoint = FindObjectOfType<SpawnPoint>();
@@ -133,14 +135,13 @@ public class PlayerMovement : MonoBehaviour
                 bool hasItem = cabinet.GetHasItem();
                 if(hasItem)
                 {
-                    // RadioItem radioItem = cabinet.GetRadioItem();
-                    // show on screen?
-                    Debug.Log("Found Item");
+                    string itemFoundText = cabinet.GetItemFoundText();
+                    dialogueManager.SetUIText(itemFoundText);
                 }
                 else
                 {
-                    // Dang
-                    Debug.Log("No Item");
+                    string itemNotFoundText = cabinet.GetItemNotFoundText();
+                    dialogueManager.SetUIText(itemNotFoundText);
                 }
             }
         }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c16d38abca18aa46a22e2c589d05577, type: 3}
-  m_Name: New Radio Item
+  m_Name: NoBatteries
   m_EditorClassIdentifier: 
-  radioItemName: 
-  radioItemGameObject: {fileID: 0}
-  itemFoundTextn: 
-  itemNotFoundText: 
+  radioItemName: Batteries
+  radioItemPrefab: {fileID: 0}
+  itemFoundText: 
+  itemNotFoundText: Dang, no batteries here.
