@@ -12,6 +12,7 @@ public class Cabinet : MonoBehaviour
     Vector3 inspectPromptPosition;
 
     [SerializeField] bool hasItem;
+    Radio radio;
     [SerializeField] RadioItemSO radioItemSO;
 
 
@@ -19,6 +20,7 @@ public class Cabinet : MonoBehaviour
     void Start()
     {
         inspectPromptPosition = transform.position + inspectPromptOffset;
+        radio = FindObjectOfType<Radio>();
     }
 
     // Update is called once per frame
@@ -30,13 +32,17 @@ public class Cabinet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.gameObject.tag == "Player")
+        if(radio.GetHasBeenFound())
         {
-            if(!thisInspectPrompt)
+            if (other.gameObject.tag == "Player")
             {
-                DisplayInteractPrompt();
+                if (!thisInspectPrompt)
+                {
+                    DisplayInteractPrompt();
+                }
             }
         }
+        
     }
 
     void OnTriggerExit2D(Collider2D other) 

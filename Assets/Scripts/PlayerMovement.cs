@@ -11,13 +11,16 @@ public class PlayerMovement : MonoBehaviour
     Animator playerAnimator;
     GameManager gameManager;
     DialogueManager dialogueManager;
+    Radio radio;
 
     [SerializeField] float playerSpeed = 10f;
     [SerializeField] float jumpSpeed = 15f;
     bool isRunning = false;
     bool isJumping = false;
     bool isAtDoor = false;
-    bool isAtCabinet;
+    bool isAtCabinet = false;
+    bool isAtRadio = false;
+
 
 
     Door door;
@@ -30,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         gameManager = FindObjectOfType<GameManager>();
         dialogueManager = FindObjectOfType<DialogueManager>();
+        radio = FindObjectOfType<Radio>();
 
 
         spawnPoint = FindObjectOfType<SpawnPoint>();
@@ -104,6 +108,10 @@ public class PlayerMovement : MonoBehaviour
             isAtCabinet = true;
             cabinet = other.GetComponent<Cabinet>();
         }
+        else if(other.gameObject.tag == "Radio")
+        {
+            isAtRadio = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) 
@@ -117,6 +125,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isAtCabinet = false;
             cabinet = null;
+        }
+        else if (other.gameObject.tag == "Radio")
+        {
+            isAtRadio = false;
         }
     }
 
@@ -132,17 +144,43 @@ public class PlayerMovement : MonoBehaviour
             }
             else if(isAtCabinet)
             {
-                bool hasItem = cabinet.GetHasItem();
-                if(hasItem)
+                if(radio)
                 {
-                    string itemFoundText = cabinet.GetItemFoundText();
-                    dialogueManager.SetUIText(itemFoundText);
+                    if(radio.GetHasBeenFound())
+                    {
+                        bool hasItem = cabinet.GetHasItem();
+                        if (hasItem)
+                        {
+                            radio.ItemFound();
+                            string itemFoundText = cabinet.GetItemFoundText();
+                            dialogueManager.SetUIText(itemFoundText, 4f);
+                        }
+                        else
+                        {
+                            string itemNotFoundText = cabinet.GetItemNotFoundText();
+                            dialogueManager.SetUIText(itemNotFoundText, 4f);
+                        }
+                    }
+                }
+            }
+            else if(isAtRadio)
+            {
+                if (radio.GetAllItemsFound())
+                {
+                    dialogueManager.SetUIText("Sweet, I found everything!", 4f);
                 }
                 else
                 {
-                    string itemNotFoundText = cabinet.GetItemNotFoundText();
-                    dialogueManager.SetUIText(itemNotFoundText);
+                    string[] radioNeeds = radio.GetRadioNeeds();
+                    radio.SetHasBeenFound();
+                    string radioItems = "";
+                    foreach (string item in radioNeeds)
+                    {
+                        radioItems += $"\n{item}";
+                    }
+                    dialogueManager.SetUIText($"Found it! But it's not working! I need to find: {radioItems}", 4f);
                 }
+                
             }
         }
     }

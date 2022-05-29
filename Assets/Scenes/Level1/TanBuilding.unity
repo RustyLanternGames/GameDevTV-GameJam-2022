@@ -1307,7 +1307,7 @@ GameObject:
   - component: {fileID: 1848781734}
   m_Layer: 0
   m_Name: Radio
-  m_TagString: Untagged
+  m_TagString: Radio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1339,6 +1339,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404523e1931a4c442a56447a24afa872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inspectPrompt: {fileID: 5776684665253032723, guid: e26a17b16d6e82042818a8bd3fc591d1, type: 3}
+  radioNeeds:
+  - Batteries
 --- !u!61 &1848781735
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1421,9 +1424,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 516863890}
     - target: {fileID: 2059337563113562269, guid: eab51529b31a18649a9fa2e11fe210ab, type: 3}
+      propertyPath: startingAreaText
+      value: I better find that radio...
+      objectReference: {fileID: 0}
+    - target: {fileID: 2059337563113562269, guid: eab51529b31a18649a9fa2e11fe210ab, type: 3}
       propertyPath: dialogueTextPanel
       value: 
       objectReference: {fileID: 516863891}
+    - target: {fileID: 2059337563113562269, guid: eab51529b31a18649a9fa2e11fe210ab, type: 3}
+      propertyPath: startingDisplayTime
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2059337563113562270, guid: eab51529b31a18649a9fa2e11fe210ab, type: 3}
       propertyPath: m_Name
       value: DialogueManager
