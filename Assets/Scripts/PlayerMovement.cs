@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     DialogueManager dialogueManager;
     Radio radio;
 
-    int buildingCompleteBonus = 25;
+    
     [SerializeField] float playerSpeed = 10f;
     [SerializeField] float jumpSpeed = 15f;
     bool isRunning = false;
@@ -168,8 +168,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (radio.GetAllItemsFound())
                 {
-                    gameManager.AddToScore(buildingCompleteBonus);
-                    dialogueManager.SetUIText("Sweet, I found everything!", 4f);
+                    if (radio.GetHasBeenScored())
+                    {
+                        dialogueManager.SetUIText("It's already playing my song, better get to the next building.", 4f);
+                    }
+                    else
+                    {
+                        dialogueManager.SetUIText("Sweet, I found everything!", 4f);
+                        radio.ScoreRadio();
+                    }
+                    
                 }
                 else
                 {
