@@ -47,7 +47,7 @@ public class Door : MonoBehaviour
     {
         return isCompleted;
     }
-    
+
     void OnTriggerEnter2D(Collider2D other)
     {
 
