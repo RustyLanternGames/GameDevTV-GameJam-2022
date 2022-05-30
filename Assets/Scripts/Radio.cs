@@ -51,6 +51,8 @@ public class Radio : MonoBehaviour
     {
         hasBeenScored = true;
         gameManager.AddToScore(buildingCompleteBonus);
+        string curBuild = gameManager.GetCurrentBuilding();
+        gameManager.AddToWinList(curBuild);
     }
 
     void OnTriggerEnter2D(Collider2D other)

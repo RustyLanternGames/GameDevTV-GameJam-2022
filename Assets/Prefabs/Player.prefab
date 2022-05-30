@@ -173,7 +173,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
-  jumpSpeed: 15
+  jumpSpeed: 20
+  lifeHeads:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!70 &755595728
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

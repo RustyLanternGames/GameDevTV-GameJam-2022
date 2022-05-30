@@ -12,7 +12,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Level1/Level1-Overworld.unity
     guid: eeffdf866549ab64296a3bdd6814ad98
   - enabled: 1
-    path: Assets/Scenes/Level1/Level1-TanBuilding.unity
+    path: Assets/Scenes/Level1/Level1-PinkBuilding.unity
     guid: e3620468972e2134a8f6c64ea730fec0
+  - enabled: 1
+    path: Assets/Scenes/Level1/Level1-TanBuilding.unity
+    guid: 96f2d9474fceb8d469ca9caaef732a98
+  - enabled: 1
+    path: Assets/Scenes/Level1/Level1-BlueBuilding.unity
+    guid: e25fa17748c5925469efbf50c8ac47c2
+  - enabled: 1
+    path: Assets/Scenes/Level1/Level1-RedBuilding.unity
+    guid: 0e177ade444b0d6479e10e767f6f4101
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 0a52f09db68f2994ebb5d2d068c63abf, type: 2}

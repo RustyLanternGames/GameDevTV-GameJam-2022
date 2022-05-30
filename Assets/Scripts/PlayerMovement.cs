@@ -15,16 +15,18 @@ public class PlayerMovement : MonoBehaviour
 
     
     [SerializeField] float playerSpeed = 10f;
-    [SerializeField] float jumpSpeed = 15f;
+    [SerializeField] float jumpSpeed = 20f;
     bool isRunning = false;
     bool isJumping = false;
     bool isAtDoor = false;
     bool isAtCabinet = false;
     bool isAtRadio = false;
 
-
+    int currentHitPoints = 3;
+    [SerializeField] GameObject[] lifeHeads;
 
     Door door;
+    string buildingName;
     Cabinet cabinet;
     SpawnPoint spawnPoint;
 
@@ -35,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         radio = FindObjectOfType<Radio>();
-
 
         spawnPoint = FindObjectOfType<SpawnPoint>();
         if(spawnPoint)
@@ -103,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isAtDoor = true;
             door = other.GetComponent<Door>();
+            buildingName = other.gameObject.name;
         }
         else if(other.gameObject.tag == "Cabinet")
         {
@@ -113,6 +115,22 @@ public class PlayerMovement : MonoBehaviour
         {
             isAtRadio = true;
         }
+        else if(other.gameObject.tag == "Enemy")
+        {
+            transform.position = spawnPoint.transform.position;
+            currentHitPoints--;
+            
+            if(currentHitPoints <= 0)
+            {
+                Door exitDoor = FindObjectOfType<Door>();
+                string nextSceneName = exitDoor.GetNextSceneName();
+                string curBuild = gameManager.GetCurrentBuilding();
+                gameManager.AddToGuardList(curBuild);
+                EnterBuilding(nextSceneName, exitDoor);
+            }
+            Destroy(lifeHeads[currentHitPoints]);
+            dialogueManager.SetUIText("Ouch, a couple more hits and I'm toast!", 4f);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) 
@@ -121,6 +139,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isAtDoor = false;
             door = null;
+            buildingName = null;
         }
         else if(other.gameObject.tag == "Cabinet")
         {
@@ -140,8 +159,22 @@ public class PlayerMovement : MonoBehaviour
         {
             if(isAtDoor)
             {
-                string nextScene = door.GetNextSceneName();
-                EnterBuilding(nextScene);
+                if(door.GetIsGuarded())
+                {
+                    dialogueManager.SetUIText("Ugh, they've locked me out, better try something else.", 3f);
+                }
+                else if(door.GetIsCompleted())
+                {
+                    dialogueManager.SetUIText("I'm already done here, better move on.", 3f);
+                }
+                else
+                {
+                    string nextScene = door.GetNextSceneName();
+                    gameManager.SetCurrentBuilding(buildingName);
+                    string bld = gameManager.GetCurrentBuilding();
+                    EnterBuilding(nextScene, door);
+                }
+                
             }
             else if(isAtCabinet)
             {
@@ -195,8 +228,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
-    void EnterBuilding(string nextScene)
+    void EnterBuilding(string nextScene, Door door)
     {
+
         if(!door.GetIsExit())
         {
             Vector3 playerPosition = transform.position;

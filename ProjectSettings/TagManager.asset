@@ -49,6 +49,9 @@ TagManager:
   - name: Background
     uniqueID: 477413051
     locked: 0
+  - name: EnemyGuard
+    uniqueID: 2128825833
+    locked: 0
   - name: Prompt
     uniqueID: 242350259
     locked: 0
