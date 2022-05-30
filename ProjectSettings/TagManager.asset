@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Cabinet
   - Radio
+  - Deadbody
   layers:
   - Default
   - TransparentFX

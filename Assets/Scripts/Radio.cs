@@ -55,6 +55,14 @@ public class Radio : MonoBehaviour
         gameManager.AddToWinList(curBuild);
     }
 
+    public void ScoreDeadbody()
+    {
+        hasBeenScored = true;
+        gameManager.AddToScore(50);
+        string curBuild = gameManager.GetCurrentBuilding();
+        gameManager.AddToWinList(curBuild);
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
 

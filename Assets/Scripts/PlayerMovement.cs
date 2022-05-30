@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     GameManager gameManager;
     DialogueManager dialogueManager;
     Radio radio;
-
+    AudioPlayer audioPlayer;
     
     [SerializeField] float playerSpeed = 10f;
     [SerializeField] float jumpSpeed = 20f;
@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     bool isAtDoor = false;
     bool isAtCabinet = false;
     bool isAtRadio = false;
+    bool isAtBody = false;
+    bool paidRespects = false;
 
     int currentHitPoints = 3;
     [SerializeField] GameObject[] lifeHeads;
@@ -29,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     string buildingName;
     Cabinet cabinet;
     SpawnPoint spawnPoint;
+    Radio deadBody;
 
     void Start()
     {
@@ -37,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         radio = FindObjectOfType<Radio>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
 
         spawnPoint = FindObjectOfType<SpawnPoint>();
         if(spawnPoint)
@@ -126,10 +130,16 @@ public class PlayerMovement : MonoBehaviour
                 string nextSceneName = exitDoor.GetNextSceneName();
                 string curBuild = gameManager.GetCurrentBuilding();
                 gameManager.AddToGuardList(curBuild);
+                gameManager.BuildingComplete();
                 EnterBuilding(nextSceneName, exitDoor);
             }
             Destroy(lifeHeads[currentHitPoints]);
             dialogueManager.SetUIText("Ouch, a couple more hits and I'm toast!", 4f);
+        }
+        else if(other.gameObject.tag == "Deadbody")
+        {
+            isAtBody = true;
+            deadBody = FindObjectOfType<Radio>();
         }
     }
 
@@ -149,6 +159,10 @@ public class PlayerMovement : MonoBehaviour
         else if (other.gameObject.tag == "Radio")
         {
             isAtRadio = false;
+        }
+        else if(other.gameObject.tag == "Deadbody")
+        {
+            isAtBody = false;
         }
     }
 
@@ -207,8 +221,15 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                     {
-                        dialogueManager.SetUIText("Sweet, I found everything!", 4f);
+                        dialogueManager.SetUIText("Sweet, I found everything! Let's Rock!", 4f);
+                        audioPlayer.PlayCharacterMusic();
                         radio.ScoreRadio();
+                        EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
+                        foreach(EnemyMovement enemy in enemies)
+                        {
+                            Destroy(enemy.gameObject);
+                        }
+                        gameManager.BuildingComplete();
                     }
                     
                 }
@@ -224,6 +245,22 @@ public class PlayerMovement : MonoBehaviour
                     dialogueManager.SetUIText($"Found it! But it's not working! I need to find: {radioItems}", 4f);
                 }
                 
+            }
+            else if (isAtBody)
+            {
+                if(!paidRespects)
+                {
+                    dialogueManager.SetUIText("Press F to pay respects I guess...", 3f);
+                    paidRespects = true;
+                    deadBody.ScoreDeadbody();
+                    gameManager.BuildingComplete();
+                }
+                else
+                {
+                    dialogueManager.SetUIText("This is weird, I should get going.", 3f);
+                }
+                
+
             }
         }
     }

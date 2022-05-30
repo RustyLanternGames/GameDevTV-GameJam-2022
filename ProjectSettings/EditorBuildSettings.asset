@@ -9,8 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/Level1/MainMenu.unity
+    guid: f9917b847aa4a104f818227cb51708c4
+  - enabled: 1
     path: Assets/Scenes/Level1/Level1-Overworld.unity
     guid: eeffdf866549ab64296a3bdd6814ad98
+  - enabled: 1
+    path: Assets/Scenes/Level1/Level1-Club27.unity
+    guid: 2b13c6ab81de89249af0ca8c5955b09b
   - enabled: 1
     path: Assets/Scenes/Level1/Level1-PinkBuilding.unity
     guid: e3620468972e2134a8f6c64ea730fec0
@@ -23,5 +29,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level1/Level1-RedBuilding.unity
     guid: 0e177ade444b0d6479e10e767f6f4101
+  - enabled: 1
+    path: Assets/Scenes/Level1/GameOver.unity
+    guid: cf42ffac26e37144e9139bb9d9ac417f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 0a52f09db68f2994ebb5d2d068c63abf, type: 2}

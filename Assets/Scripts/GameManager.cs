@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     int score;
+    int maxPoints = 200;
+    int allBuildings = 5;
+    int buildingsComplete;
     Vector3 streetSpawnLocation = new Vector3(-16f, -3.8f, 0f);
     Vector3 nextSpawnLocation = new Vector3(-16f, -3.8f, 0f);
 
@@ -13,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     List<string> guardedDoors;
     List<string> completedDoors;
+
+    bool gameOver = false;
 
     void Awake()
     {
@@ -37,9 +42,33 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
+        if(!gameOver)
+        {
+            if(buildingsComplete >= allBuildings)
+            {
+                StartCoroutine(EndGame());
+            }
+        }
+        
     }
-    
+
+    IEnumerator EndGame()
+    {
+        gameOver = true;
+        yield return new WaitForSecondsRealtime(3);
+        SceneManager.LoadScene("GameOver");
+    }
+
+    public void BuildingComplete()
+    {
+        buildingsComplete++;
+    }
+
+    public int GetMaxPoints()
+    {
+        return maxPoints;
+    }
+
     public void AddToWinList(string door)
     {
         completedDoors.Add(door);
@@ -99,5 +128,14 @@ public class GameManager : MonoBehaviour
          nextSpawnLocation = spawnLocation;
     }
 
-    
+    public void ClearDataAndReload()
+    {
+        score = 0;
+        buildingsComplete = 0;
+        gameOver = false;
+        guardedDoors = new List<string>();
+        completedDoors = new List<string>();
+        streetSpawnLocation = new Vector3(-16f, -3.8f, 0f);
+        SceneManager.LoadScene("MainMenu");
+    }
 }
