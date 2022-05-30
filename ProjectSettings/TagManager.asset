@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - Door
+  - Enemy
+  - Cabinet
+  - Radio
+  - Deadbody
   layers:
   - Default
   - TransparentFX
@@ -40,4 +46,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 477413051
+    locked: 0
+  - name: EnemyGuard
+    uniqueID: 2128825833
+    locked: 0
+  - name: Prompt
+    uniqueID: 242350259
+    locked: 0
+  - name: Player
+    uniqueID: 971087219
     locked: 0
