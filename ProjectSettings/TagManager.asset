@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Cabinet
   - Radio
+  - Deadbody
   layers:
   - Default
   - TransparentFX
@@ -48,6 +49,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 477413051
+    locked: 0
+  - name: EnemyGuard
+    uniqueID: 2128825833
     locked: 0
   - name: Prompt
     uniqueID: 242350259

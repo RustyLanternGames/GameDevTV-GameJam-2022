@@ -12,21 +12,26 @@ public class PlayerMovement : MonoBehaviour
     GameManager gameManager;
     DialogueManager dialogueManager;
     Radio radio;
-
-    int buildingCompleteBonus = 25;
+    AudioPlayer audioPlayer;
+    
     [SerializeField] float playerSpeed = 10f;
-    [SerializeField] float jumpSpeed = 15f;
+    [SerializeField] float jumpSpeed = 20f;
     bool isRunning = false;
     bool isJumping = false;
     bool isAtDoor = false;
     bool isAtCabinet = false;
     bool isAtRadio = false;
+    bool isAtBody = false;
+    bool paidRespects = false;
 
-
+    int currentHitPoints = 3;
+    [SerializeField] GameObject[] lifeHeads;
 
     Door door;
+    string buildingName;
     Cabinet cabinet;
     SpawnPoint spawnPoint;
+    Radio deadBody;
 
     void Start()
     {
@@ -35,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         radio = FindObjectOfType<Radio>();
-
+        audioPlayer = FindObjectOfType<AudioPlayer>();
 
         spawnPoint = FindObjectOfType<SpawnPoint>();
         if(spawnPoint)
@@ -103,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isAtDoor = true;
             door = other.GetComponent<Door>();
+            buildingName = other.gameObject.name;
         }
         else if(other.gameObject.tag == "Cabinet")
         {
@@ -113,6 +119,28 @@ public class PlayerMovement : MonoBehaviour
         {
             isAtRadio = true;
         }
+        else if(other.gameObject.tag == "Enemy")
+        {
+            transform.position = spawnPoint.transform.position;
+            currentHitPoints--;
+            
+            if(currentHitPoints <= 0)
+            {
+                Door exitDoor = FindObjectOfType<Door>();
+                string nextSceneName = exitDoor.GetNextSceneName();
+                string curBuild = gameManager.GetCurrentBuilding();
+                gameManager.AddToGuardList(curBuild);
+                gameManager.BuildingComplete();
+                EnterBuilding(nextSceneName, exitDoor);
+            }
+            Destroy(lifeHeads[currentHitPoints]);
+            dialogueManager.SetUIText("Ouch, a couple more hits and I'm toast!", 4f);
+        }
+        else if(other.gameObject.tag == "Deadbody")
+        {
+            isAtBody = true;
+            deadBody = FindObjectOfType<Radio>();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) 
@@ -121,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isAtDoor = false;
             door = null;
+            buildingName = null;
         }
         else if(other.gameObject.tag == "Cabinet")
         {
@@ -131,6 +160,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isAtRadio = false;
         }
+        else if(other.gameObject.tag == "Deadbody")
+        {
+            isAtBody = false;
+        }
     }
 
 
@@ -140,8 +173,22 @@ public class PlayerMovement : MonoBehaviour
         {
             if(isAtDoor)
             {
-                string nextScene = door.GetNextSceneName();
-                EnterBuilding(nextScene);
+                if(door.GetIsGuarded())
+                {
+                    dialogueManager.SetUIText("Ugh, they've locked me out, better try something else.", 3f);
+                }
+                else if(door.GetIsCompleted())
+                {
+                    dialogueManager.SetUIText("I'm already done here, better move on.", 3f);
+                }
+                else
+                {
+                    string nextScene = door.GetNextSceneName();
+                    gameManager.SetCurrentBuilding(buildingName);
+                    string bld = gameManager.GetCurrentBuilding();
+                    EnterBuilding(nextScene, door);
+                }
+                
             }
             else if(isAtCabinet)
             {
@@ -168,8 +215,23 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (radio.GetAllItemsFound())
                 {
-                    gameManager.AddToScore(buildingCompleteBonus);
-                    dialogueManager.SetUIText("Sweet, I found everything!", 4f);
+                    if (radio.GetHasBeenScored())
+                    {
+                        dialogueManager.SetUIText("It's already playing my song, better get to the next building.", 4f);
+                    }
+                    else
+                    {
+                        dialogueManager.SetUIText("Sweet, I found everything! Let's Rock!", 4f);
+                        audioPlayer.PlayCharacterMusic();
+                        radio.ScoreRadio();
+                        EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
+                        foreach(EnemyMovement enemy in enemies)
+                        {
+                            Destroy(enemy.gameObject);
+                        }
+                        gameManager.BuildingComplete();
+                    }
+                    
                 }
                 else
                 {
@@ -184,11 +246,28 @@ public class PlayerMovement : MonoBehaviour
                 }
                 
             }
+            else if (isAtBody)
+            {
+                if(!paidRespects)
+                {
+                    dialogueManager.SetUIText("Press F to pay respects I guess...", 3f);
+                    paidRespects = true;
+                    deadBody.ScoreDeadbody();
+                    gameManager.BuildingComplete();
+                }
+                else
+                {
+                    dialogueManager.SetUIText("This is weird, I should get going.", 3f);
+                }
+                
+
+            }
         }
     }
     
-    void EnterBuilding(string nextScene)
+    void EnterBuilding(string nextScene, Door door)
     {
+
         if(!door.GetIsExit())
         {
             Vector3 playerPosition = transform.position;

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7763581056284432686}
   - component: {fileID: 7763581056284432687}
   - component: {fileID: 1687000535}
+  - component: {fileID: 8337596608069540399}
   m_Layer: 0
   m_Name: Demon
   m_TagString: Enemy
@@ -144,3 +145,19 @@ MonoBehaviour:
   positions:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!70 &8337596608069540399
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7763581056284432691}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.08655882, y: -0.4327929}
+  m_Size: {x: 0.7186527, y: 2.334414}
+  m_Direction: 0

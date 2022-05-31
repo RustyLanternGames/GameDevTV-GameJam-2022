@@ -8,9 +8,11 @@ public class Radio : MonoBehaviour
     [SerializeField] GameObject inspectPrompt;
     [SerializeField] string[] radioNeeds;
     [SerializeField] int pointsPerItem = 10;
+    int buildingCompleteBonus = 25;
     int radioItemsNeededCount;
     int radioItemsFoundCount;
     bool allItemsFound = false;
+    bool hasBeenScored = false;
     GameObject thisInspectPrompt;
     Vector3 inspectPromptOffset = new Vector3(0f, 2.5f, 0f);
     Vector3 inspectPromptPosition;
@@ -40,6 +42,27 @@ public class Radio : MonoBehaviour
         return hasBeenFound;
     }
 
+    public bool GetHasBeenScored()
+    {
+        return hasBeenScored;
+    }
+
+    public void ScoreRadio()
+    {
+        hasBeenScored = true;
+        gameManager.AddToScore(buildingCompleteBonus);
+        string curBuild = gameManager.GetCurrentBuilding();
+        gameManager.AddToWinList(curBuild);
+    }
+
+    public void ScoreDeadbody()
+    {
+        hasBeenScored = true;
+        gameManager.AddToScore(50);
+        string curBuild = gameManager.GetCurrentBuilding();
+        gameManager.AddToWinList(curBuild);
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -66,7 +89,7 @@ public class Radio : MonoBehaviour
     void DisplayInteractPrompt()
     {
         thisInspectPrompt = Instantiate(inspectPrompt, inspectPromptPosition, Quaternion.identity);
-    }
+    }   
 
     public string[] GetRadioNeeds()
     {
